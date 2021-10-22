@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 import boto3
 from flask import Flask, jsonify, request
+from version import __version__
 
 app = Flask(__name__)
 client = boto3.client('dynamodb', region_name='eu-west-1')
@@ -10,7 +11,12 @@ dynamoTableName = 'musicTable'
 
 @app.route("/")
 def hello():
-    return "Hello World!"
+    return f"Hello World!"
+
+
+@app.route('/version')
+def get_version():
+    return __version__
 
 
 @app.route("/v1/bestmusic/90s/<string:artist>")
